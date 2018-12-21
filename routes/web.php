@@ -26,7 +26,7 @@ Route::get('/horoscope', ['as' => 'horoscope', 'uses' => 'HoroscopeController@in
 
 Route::get('/myrasi/{slug}', 'HoroscopeController@now')->name('myrasi');
 
-Route::get('/lang/{slug}', 'UserController@lang')->name('lang');
+Route::get('/lang', 'UserController@lang')->name('lang');
 
 
 
@@ -83,3 +83,4 @@ Route::get('/deleterasi/{id}', 'HomeController@deleterasi')->name('deleterasi');
 
 Route::get('/now/{slug}', 'HomeController@now')->name('now');
 
+Route::post('/selecteddate', 'HomeController@selecteddate')->name('selecteddate');

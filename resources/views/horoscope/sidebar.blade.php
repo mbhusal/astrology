@@ -15,10 +15,19 @@
                         <li class="list-group-item"><a href="{{route('now','thisyear')}}">{{__("horo.thisyear")}}</a></li>
                         <li class="list-group-item">
 
+
                           @if(config('app.locale')== 'np')
-                             <a href="{{route('lang',"en")}}">See in English</a>
+                          <form method="get" action="{{route('lang')}}">
+                            @csrf()
+                            <input type="hidden" name="locale" value="en">
+                             <button  type="submit">See in English</button>
+                          </form>
                           @else
-                              <a href="{{route('lang',"np")}}">नेपालीमा हेर्नुहोस्</a>
+                          <form method="get" action="{{route('lang')}}">
+                            @csrf()
+                            <input type="hidden" name="locale" value="np">
+                              <button type="submit">नेपालीमा हेर्नुहोस्</button>
+                          </form>
                           @endif
                         </li>
                       </ul>

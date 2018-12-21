@@ -5,6 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-3">
                 @include('horoscope.sidebar')
+                <br>
+                <form method="post" action="{{route('selecteddate')}}">
+                    @csrf
+                    <input type="date" name="selectdate">
+                    <button class="btn btn-primary btn-xs" type="submit">View</button>
+                </form>
         </div>
         <div class="col-md-9">
               @if ($errors->any())

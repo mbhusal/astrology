@@ -7,7 +7,9 @@ use App\Idea;
 use Carbon\Carbon;
 use DB;
 use App;
+use Session;
 use Illuminate\Support\Facades\Redirect;
+use Config;
 
 
 class UserController extends Controller
@@ -15,7 +17,6 @@ class UserController extends Controller
 
     public function index()
     {
-
             $archives = DB::table('ideas')
             ->selectRaw('year(created_at) as year,month(created_at) as month, monthname(created_at) as monthname, COUNT(*) post_count')
             ->groupBy('year')
@@ -25,7 +26,6 @@ class UserController extends Controller
             ->orderBy('month', 'desc')
             ->where('status',1)
             ->get();
-
 
         $items = Idea::where('status', 1)->get();
         return view('home', compact('items' , 'archives'));
@@ -40,10 +40,17 @@ class UserController extends Controller
 
 
 
-    public function lang($slug)
+    public function lang(Request $request)
     {
-        App::setLocale($slug);
-        return redirect()->route('root');
+        $this->validate($request, ['locale' => 'required']);
+getLanguage();
+
+        Session::put('locale', $request->locale);
+
+
+        dump(Session::get('locale'));
+
+        return redirect()->back();
 
     }
 

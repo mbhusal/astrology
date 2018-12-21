@@ -243,4 +243,25 @@ class HomeController extends Controller
         $horo = Horoscope::where(['date' => $mytime, 'lang'=> config('app.locale')])->get();
         return view('horoscope.this', compact('horo', 'info'));
     }
+
+    public function selecteddate(Request $request)
+    {        
+        $rasi = $request->validate([
+            'selectdate' => 'required',
+        ]);
+        $date = $request->selectdate;
+        $checkme = count(explode('-',$date));
+        if ($checkme == 3) {
+            $daily = Horoscope::where(['date' => $request->selectdate , 'lang'=>config('app.locale')])->get();
+            return view('horoscope.daily', compact('daily'));
+        }
+        if ($checkme == 2) {
+            $monthly = Horoscope::where(['date' => $request->selectdate , 'lang'=>config('app.locale')])->get();
+            return view('horoscope.monthly', compact('monthly'));
+        }
+        if ($checkme == 1) {
+            $yearly = Horoscope::where(['date' => $request->selectdate , 'lang'=>config('app.locale')])->get();
+            return view('horoscope.yearly', compact('yearly'));
+        }
+    }
 }

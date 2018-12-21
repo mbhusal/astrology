@@ -5,6 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-3">
                 @include('horoscope.sidebar')
+                <br>
+                <form method="post" action="{{route('selecteddate')}}">
+                    @csrf
+                    <input type="number" name="selectdate" value="2019">
+                    <button class="btn btn-primary btn-xs" type="submit">View</button>
+                </form>
         </div>
         <div class="col-md-9">
               @if ($errors->any())
@@ -39,24 +45,16 @@
                     @endif
 
                     @foreach($yearly as $year)
-
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title"><b>{{$year->date}}</b> {{__("horo.Yearly Horoscope")}} <b style="color: blue;"> {{$year->rasi}}</b></h5> 
                         <p class="card-text">{!!$year->horoscope!!}</p>
                         <button type="button" class="btn btn-primary btn-xs"><a href="{{route('editrasi', $year-> id)}}" style="color: white;">Edit</a></button>
                         <button type="button" class="btn btn-danger btn-xs"><a href="{{route('deleterasi', $year-> id)}}" style="color: white;">Delete</a></button>
-
                       </div>
-
                     </div>
-
                     <br>
-
                     @endforeach
-
-
-
                 </div>
         </div>
     </div>
